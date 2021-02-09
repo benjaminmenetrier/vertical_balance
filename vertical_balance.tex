@@ -254,6 +254,9 @@ The algorithm to compute the balance operator components using the partial recur
 \STATE Inverse $\widetilde{\Cov}\left(\mathbf{v}_j,\mathbf{v}_j\right)$ to get $\widetilde{\Cov} \left(\mathbf{v}_j,\mathbf{v}_j\right)^{-1}$
 \STATE Estimate the balance operator component $\mathbf{K}_{i,j}$:
 \STATE $\displaystyle \qquad \widetilde{\mathbf{K}}_{i,j} = \widetilde{\Cov} \left(\mathbf{x}_i,\mathbf{v}_j\right)\widetilde{\Cov} \left(\mathbf{v}_j,\mathbf{v}_j\right)^{-1}$
+\ENDFOR
+\STATE $  $\\
+\FOR{$1 \le j < i$}
 \STATE Estimate the matrix $\mathbf{A}_{i,j}$:
 \STATE $\displaystyle \qquad \widetilde{\mathbf{A}}_{i,j} = - \sum_{k=j}^{i-1} \widetilde{\mathbf{K}}_{i,k} \widetilde{\mathbf{A}}_{k,j}$
 \ENDFOR
