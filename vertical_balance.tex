@@ -124,13 +124,37 @@ Thus, we can simplify equation \eqref{eq:full} into:
 \mathbf{x}_i = \sum_{j=1}^{i-1} \mathbf{K}_{i,j} \mathbf{v}_j + \mathbf{v}_i
 \end{align}
 
-\section{Partial recursive inverse}
-Using the previous assumption, equation \eqref{eq:triangle} can be transformed to compute $\mathbf{v}$ knowing $\mathbf{x}$ recursively:
+\section{Adjoint}
+The adjoint of the balance operator is given by: 
+\begin{align}
+\mathbf{K}^\mathrm{T} = \left(\begin{array}{ccccc}
+\mathbf{I}_n & \mathbf{K}_{2,1} & \mathbf{K}^\mathrm{T}_{3,1} & \dots & \mathbf{K}^\mathrm{T}_{m,1} \\
+0 & \mathbf{I}_n & \mathbf{K}^\mathrm{T}_{3,2} & \dots & \mathbf{K}^\mathrm{T}_{m,2} \\
+\vdots & \ddots & \mathbf{I}_n & \ddots & \vdots \\
+\vdots &  & \ddots & \ddots & \mathbf{K}^\mathrm{T}_{m,m-1} \\
+0 & \dots & \dots & 0 & \mathbf{I}_n
+\end{array} \right) 
+\end{align}
+so $\mathbf{v} = \mathbf{K}^\mathrm{T} \mathbf{x}$ can be expressed as:
+\begin{align}
+\label{eq:triangle_ad}
+\mathbf{v}_i = \mathbf{x}_i + \sum_{j=i+1}^{m} \mathbf{K}^\mathrm{T}_{j,i} \mathbf{x}_j
+\end{align}
+
+\section{Partial recursive inverses}
+Equation \eqref{eq:triangle} can be transformed to compute $\mathbf{v}$ knowing $\mathbf{x}$ recursively:
 \begin{align}
 \label{eq:partial_inverse}
 \mathbf{v}_i & = \mathbf{x}_i - \sum_{j=1}^{i-1} \mathbf{K}_{i,j} \mathbf{v}_j
 \end{align}
-It should be noted that the inverse of $\mathbf{K}_{i,j}$ is not required. This inverse formula is refered to as ``partial'' since the unbalanced variable $\mathbf{v}$ still appears on the right-hand side.
+It should be noted that the inverse of $\mathbf{K}_{i,j}$ is not required. This inverse formula is refered to as ``partial'' since the unbalanced variable $\mathbf{v}$ still appears on the right-hand side.\\
+$  $\\
+For the adjoint in equation \eqref{eq:triangle_ad}, the same transformation leads to:
+\begin{align}
+\label{eq:partial_inverse_ad}
+\mathbf{x}_i = \mathbf{v}_i - \sum_{j=i+1}^{m} \mathbf{K}^\mathrm{T}_{j,i} \mathbf{x}_j
+\end{align}
+and must be applied recursively in reverse order ($i$ from $m$ to 1).
 
 \section{Full recursive inverse}
 We assume that for $1 \le j \le i-1$, $\mathbf{v}_j$ can be expressed as:
